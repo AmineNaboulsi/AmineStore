@@ -1,6 +1,7 @@
 <?php
 
-require '../Interface/ClientPrivileges.php';
+namespace App\Models;
+use App\Interface\ClientPrivileges;
 
 
 class Client implements ClientPrivileges {

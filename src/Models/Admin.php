@@ -1,6 +1,8 @@
 <?php
 
-namespace Amine\AmineStore\Admin;
+namespace App\Models;
+use App\Interface\AdminPrivileges;
+
 
 class Admin implements AdminPrivileges{
 

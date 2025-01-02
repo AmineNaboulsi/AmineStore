@@ -1,7 +1,7 @@
 <?php
+require __DIR__ .'/vendor/autoload.php';
 
-require_once './Routes/MainRoute.php';
-require_once './Controller/ControllerUser.php';
+use App\Routes\MainRoute;
 
 
 $method = $_SERVER['REQUEST_METHOD'];

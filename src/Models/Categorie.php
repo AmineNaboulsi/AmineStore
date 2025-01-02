@@ -1,6 +1,6 @@
 <?php
 
-namespace Amine\AmineStore\categorie;
+namespace App\Models;
 
 
 class Categorie{

@@ -1,5 +1,7 @@
 <?php
 
+namespace App\Interface;
+
 interface AdminPrivileges{
 
     public function ActiveAccount(INT $id_C) : void ;

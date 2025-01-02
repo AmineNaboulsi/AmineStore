@@ -2,7 +2,7 @@
     "name": "amine/amine-store",
     "autoload": {
         "psr-4": {
-            "Amine\\AmineStore\\": "src/"
+            "\\": "srcApp/"
         }
     },
     "authors": [

@@ -1,5 +1,7 @@
 <?php
 
+namespace App\Interface;
+
 interface ClientPrivileges{
     
     public function Add_to_Panier() : void;

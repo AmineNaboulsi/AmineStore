@@ -1,6 +1,6 @@
 <?php
 
-namespace Amine\AmineStore\Route;
+namespace App\Routes;
 
 class MainRoute{
 
@@ -35,14 +35,7 @@ class MainRoute{
         // class_exists()
 
         $endpoint = strtok($this->uri);
-        try{
-            if(){
-                
-            }
-
-        }catch(){
-
-        }
+        echo "zbi";
     }
 }
 

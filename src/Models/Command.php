@@ -1,5 +1,8 @@
 <?php
 
+namespace App\Models;
+
+
 class Command{
 
     public int $id_ca;
