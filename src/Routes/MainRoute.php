@@ -30,12 +30,20 @@ class MainRoute{
     public function DELETE($route , $class , $method){
         $this->routes['DELETE'][$route] = [$class, $method];
     }
-    public function Dispatch(){
-        // print_r($this->routes);
-        // class_exists()
-
-        $endpoint = strtok($this->uri);
-        echo "zbi";
+    public function Dispatch() {
+        $endpoint = strtok($this->uri, '?');
+        header('Content-Type: application/json');
+        if (isset($this->routes[$this->method][$endpoint])) {
+            [$class, $method] = $this->routes[$this->method][$endpoint];
+            $HandleClass = new $class();
+            echo json_encode($HandleClass->$method());
+        }else{
+            //throw new InvalideRoute("Route not found");
+            echo json_encode([
+                "status" => false,
+                "message" => "Invalid Route"
+            ]);
+        }
     }
 }
 

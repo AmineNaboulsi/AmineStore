@@ -17,11 +17,16 @@ abstract class User {
         $this->password =  $password ;
     }
 
-    public function SeConnecter(){
+    protected function HashedPassword() {return password_hash($this->password , PASSWORD_DEFAULT);}
+
+
+
+    public function SignUp(){
         $con = Connection::getConnection();
+
     }
 
-    public function SeDonnecter(){
+    public function SignIn(){
         $con = Connection::getConnection();
     }
     

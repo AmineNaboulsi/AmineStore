@@ -4,7 +4,7 @@ CREATE TABLE Users
 (
     id_u INT AUTO_INCREMENT ,
     name VARCHAR(250) ,
-    email VARCHAR(250) NOT NULL,
+    email VARCHAR(250) NOT NULL UNIQUE,
     password VARCHAR(250) NOT NULL,
     PRIMARY KEY (id_u)
 );
@@ -66,3 +66,4 @@ CREATE TABLE CommandDetails
     FOREIGN KEY (id_p) REFERENCES Products(id_p) ON UPDATE CASCADE 
     ON DELETE CASCADE 
 );  
+
