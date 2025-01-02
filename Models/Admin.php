@@ -1,6 +1,6 @@
 <?php
 
-require '../Interface/AdminPrivileges.php';
+namespace Amine\AmineStore\Admin;
 
 class Admin implements AdminPrivileges{
 

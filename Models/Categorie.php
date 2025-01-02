@@ -1,5 +1,8 @@
 <?php
 
+namespace Amine\AmineStore\categorie;
+
+
 class Categorie{
 
     public int $id_c;

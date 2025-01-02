@@ -1,23 +1,17 @@
 <?php
 
-require_once './Controller/controlleruser.php';
+require_once './Routes/MainRoute.php';
+require_once './Controller/ControllerUser.php';
 
 
 $method = $_SERVER['REQUEST_METHOD'];
+$endpoint = $_SERVER['REQUEST_URI'];
 
-$url = $_POST['url'] ?? null;
+$MainRoute =new MainRoute($method , $endpoint);
 
-$routes = [
-    'adduser' => [controlleruser::class, 'adduser']
-];
+$MainRoute->POST('/signup' ,ControllerUser::class, "");
+$MainRoute->GET('/signin' ,ControllerUser::class, "");
+$MainRoute->GET('/getdata' ,ControllerUser::class, "");
 
-if (isset($routes[$url])) {
-    [$controllerClass, $methodName] = $routes[$url];
+$MainRoute->Dispatch();
 
-    $object = new $controllerClass();
-    $object->$methodName();
- 
-} else {
-    http_response_code(404);
-    echo "Route not found.";
-}

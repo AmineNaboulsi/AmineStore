@@ -1,4 +1,16 @@
 {
+    "name": "amine/amine-store",
+    "autoload": {
+        "psr-4": {
+            "Amine\\AmineStore\\": "src/"
+        }
+    },
+    "authors": [
+        {
+            "name": "AmineNaboulsi",
+            "email": "naboulsiiamine@gmail.com"
+        }
+    ],
     "require": {
         "vlucas/phpdotenv": "^5.6"
     }
