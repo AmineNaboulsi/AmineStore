@@ -19,15 +19,6 @@ abstract class User {
 
     public function HashedPassword() {return password_hash($this->password , PASSWORD_DEFAULT);}
 
-    public function SignUp(){
-        $con = Connection::getConnection();
-
-    }
-
-    public function SignIn(){
-        $con = Connection::getConnection();
-    }
-    
 }
 
 ?>

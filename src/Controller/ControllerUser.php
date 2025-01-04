@@ -37,7 +37,22 @@ class controlleruser{
             ];
     }
     public function signin(){
-        
+        $parametres = ["email" , "password"];
+        $missingparam = array_filter($parametres , function($parametre){
+            if(!isset($_POST[$parametre])) return $parametre;
+        });
+        if(!$missingparam){
+
+            $email = $_POST["email"];
+            $password = $_POST["password"];
+
+            $ClientRepository = new UserRepository();
+            return $ClientRepository->SignIn($email , $password);
+        }
+        return [
+            "status" => false,
+            "message" => "Missing parametres"
+        ];
     }
 }
 ?>

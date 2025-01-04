@@ -43,11 +43,15 @@ class JwtUtil {
             $decodedArray = (array)$decoded;
 
             // Accessing the 'user_id' claim
-            $userId = $decodedArray['user_id'];
+            $userId = $decodedArray['id'];
 
              return $userId;
-        } catch (Exception $e) {
-            return -1 ;
+        } catch (\Firebase\JWT\ExpiredException $e) {
+            return -3; // Token is invalid due to expiration
+        } catch (\Firebase\JWT\SignatureInvalidException $e) {
+            return -2; // Token is invalid due to signature mismatch
+        } catch (\Exception $e) {
+            return -1; // Token is invalid due to general error
         }
     }
     

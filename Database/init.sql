@@ -1,4 +1,4 @@
-use aminestore
+use aminestore ;
 
 CREATE TABLE Users
 (
@@ -6,24 +6,17 @@ CREATE TABLE Users
     name VARCHAR(250) ,
     email VARCHAR(250) NOT NULL UNIQUE,
     password VARCHAR(250) NOT NULL,
+    Active INT ,
     PRIMARY KEY (id_u)
 );
 
-CREATE TABLE Admins
+SELECT password FROM Users ;
+CREATE TABLE Roles
 (
-    id_a INT AUTO_INCREMENT ,
-    id_u INT NOT NULL,
-    PRIMARY KEY (id_a),
-    FOREIGN KEY (id_u) REFERENCES Users(id_u) ON UPDATE CASCADE 
-    ON DELETE CASCADE
-);
-
-CREATE TABLE Clients
-(
-    id_c INT AUTO_INCREMENT ,
-    id_u INT NOT NULL,
-    Active INT NOT NULL,
-    PRIMARY KEY (id_c),
+    id_r INT AUTO_INCREMENT ,
+    id_u INT,
+    role VARCHAR(150),
+    PRIMARY KEY (id_r),
     FOREIGN KEY (id_u) REFERENCES Users(id_u) ON UPDATE CASCADE 
     ON DELETE CASCADE
 );
@@ -61,9 +54,10 @@ CREATE TABLE CommandDetails
     quantité INT NOT NULL,
     Status INT ,
     PRIMARY KEY (id_cd),
-    FOREIGN KEY (id_c) REFERENCES Clients(id_c) ON UPDATE CASCADE 
+    FOREIGN KEY (id_c) REFERENCES Users(id_u) ON UPDATE CASCADE
     ON DELETE CASCADE , 
     FOREIGN KEY (id_p) REFERENCES Products(id_p) ON UPDATE CASCADE 
     ON DELETE CASCADE 
-);  
+);
+
 

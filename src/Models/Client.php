@@ -21,7 +21,11 @@ class Client extends User /*implements ClientPrivileges */ {
     {
         parent::__construct($name , $email , $password);
     }
-   
+
+    public function __toString()
+    {
+        return "Client";
+    }
 }
 
 ?>

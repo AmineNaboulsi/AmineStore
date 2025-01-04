@@ -42,22 +42,20 @@ class MainRoute{
         $endpoint = strtok($this->uri, '?');
         header('Content-Type: application/json');
         $isFound=false;
-        foreach ($this->routes[$this->method] as $routeaction => $routeO) {
+        foreach ($this->routes[$this->method] as $routeaction => $routeObj) {
             if ($routeaction === $endpoint) {
-                $class = $routeO->getClass();
-                $method = $routeO->getMethod();
-                //echo 'getMiddleware : '.$routeO->getMiddleware();
-                if($routeO->getMiddleware()){
-                    echo json_encode([
-                        "status" => false,
-                        "message" => "Unauthorized access. Please log in."
-                    ]);
+                $class = $routeObj->getClass();
+                $method = $routeObj->getMethod();
+                $middleware = $routeObj->getMiddleware();
+                $class =new $class();
+                if($middleware){
+                    $response = $middleware::handle(function () use ($class, $method) {
+                        return $class->$method();
+                    });
+                    echo json_encode($response);
                     return ;
                 }
-
-                $instance = new $class();;
-                echo json_encode($instance->$method());
-
+                echo json_encode($class->$method());
                 $isFound = true;
                 return;
             }
