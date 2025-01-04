@@ -29,6 +29,27 @@ class JwtUtil {
         ];
         return JWT::encode($payload, $secretKey, $algorithm);
     }
+
+    public static function ValidToken($token)  {
+        $dotenv = Dotenv::createImmutable(realpath(__DIR__ . '/../../'));
+        $dotenv->load();
+
+        try {
+            $secretKey = $_ENV['SECRETKEY'];
+            // Decode the JWT
+            $decoded = JWT::decode($token, new Key($secretKey, 'HS256'));
+
+            // Convert the decoded object to an associative array
+            $decodedArray = (array)$decoded;
+
+            // Accessing the 'user_id' claim
+            $userId = $decodedArray['user_id'];
+
+             return $userId;
+        } catch (Exception $e) {
+            return -1 ;
+        }
+    }
     
 }
 

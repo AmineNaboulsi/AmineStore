@@ -6,7 +6,10 @@ require realpath(
     __DIR__ . '/../../'
 ) . '/vendor/autoload.php';
 
-use App\Models\Client ;
+use App\Models\Client;
+use App\Repository\UserRepository;
+
+
 class controlleruser{
 
     public function __construct()
@@ -25,14 +28,15 @@ class controlleruser{
             $password = $_POST["password"];
             
             $Client = new Client($name , $email ,$password);
-            return $Client->CreateAccount();
+            $ClientRepository = new UserRepository();
+            return $ClientRepository->Save($Client);
         }
             return [
                 "status" => false,
                 "message" => "Missing parametres"
             ];
     }
-   public function signin(){
+    public function signin(){
         
     }
 }

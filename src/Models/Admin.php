@@ -6,7 +6,7 @@ use App\Interface\AdminPrivileges;
 
 class Admin implements AdminPrivileges{
 
-    //Default cc
+    //Default Constrecteur
     public function __construct()
     {
         
