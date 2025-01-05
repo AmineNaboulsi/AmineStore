@@ -51,8 +51,8 @@ class ProductRepository{
     public function Save(Product $product) {
         $con = Connection::getConnection();
         $sqlDataReader =  $con->prepare("INSERT INTO Products 
-        (name , prix , description, quantité , projected ,img) Value 
-        (:name , :price , :description, :stock , :projected ,:img)");
+        (name , prix , description, quantité , projected ,img , categorie_id) Value 
+        (:name , :price , :description, :stock , :projected ,:img , :categorie_id)");
 
         if(
             $sqlDataReader->execute([
@@ -61,8 +61,9 @@ class ProductRepository{
             ":description" => $product->getDescription() ,
             ":stock" =>$product->getStock() ,
             ":projected" => $product->isProjected()?1:0 ,
-            ":img" =>$product->getImg() 
-        ]) ) 
+            ":img" =>$product->getImg() ,
+            ":categorie_id" =>$product->getCategorieId()
+        ]) )
                 return [
                     "status" => true ,
                     "message" => "Product Added Successfuly"
@@ -129,9 +130,9 @@ class ProductRepository{
         $sqlDataReader->execute([
             ":id_p" => $IdProduct
         ]);
-        $Product_Stock = $sqlDataReader->fetchAll(\PDO::FETCH_ASSOC);
-        if ($Product_Stock && isset($productStock['stock'])) {
-            return $productStock['stock'] >= $NbPicked;
+        $Product_Stock = $sqlDataReader->fetch(\PDO::FETCH_ASSOC);
+        if ($Product_Stock && isset($Product_Stock['stock'])) {
+            return $Product_Stock['stock'] >= $NbPicked;
         }else{
             //Now we need to handle in case of product , qantity didnt exists
             return false;

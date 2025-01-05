@@ -32,7 +32,7 @@ class UserRepository{
     public function SignIn(string $email, string $password)
     {
         $con = Connection::getConnection();
-        $sqldataReader = $con->prepare("SELECT password FROM Users WHERE email=:email");
+        $sqldataReader = $con->prepare("SELECT id_u, password FROM Users WHERE email=:email");
         $sqldataReader->execute([
             ":email" => $email
         ]);
@@ -40,7 +40,7 @@ class UserRepository{
         if($sqldataReader){
              if(password_verify($password, $sqldataReader['password'] )){
                  $user = new Client('',$email,'');
-                 $user->id = $con->lastInsertId();
+                 $user->id = $sqldataReader['id_u'] ;
                  return [
                      "status" => true,
                      "message" => "Login successfuly",

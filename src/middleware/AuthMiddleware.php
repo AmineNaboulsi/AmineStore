@@ -27,6 +27,11 @@ class AuthMiddleware{
         }
         return $nextAction();
     }
+    public static function getUserId()
+    {
+        return ValidationMiddleware::Verification();
+    }
+
 }
 
 ?>

@@ -29,7 +29,7 @@ CREATE TABLE Commands
 CREATE TABLE Categories
 (
     id_ca INT AUTO_INCREMENT ,
-    Name VARCHAR(150) NOT NULL,
+    Name LONGTEXT NOT NULL,
     img VARCHAR(1000) NOT NULL,
     PRIMARY KEY (id_ca)
 );
@@ -39,29 +39,34 @@ CREATE TABLE Products
     id_p INT AUTO_INCREMENT ,
     name VARCHAR(250) NOT NULL,
     prix FLOAT NOT NULL,
-    description VARCHAR(1000),
+    description LONGTEXT,
     quantité INT NOT NULL,
     projected INT ,
-    img VARCHAR(1000) ,
+    img LONGTEXT,
     categorie_id INT ,
     PRIMARY KEY (id_p),
     foreign key (categorie_id) REFERENCES Categories(id_ca) ON DELETE SET NULL
 );
+DESCRIBE  Products ;
 CREATE TABLE CommandDetails
 (
     id_cd INT AUTO_INCREMENT ,
+    id_command INT  ,
     id_c INT NOT NULL,
     id_p INT NOT NULL,
     quantité INT NOT NULL,
     Status INT ,
     PRIMARY KEY (id_cd),
     FOREIGN KEY (id_c) REFERENCES Users(id_u) ON UPDATE CASCADE
-    ON DELETE CASCADE , 
+    ON DELETE CASCADE ,
+    FOREIGN KEY (id_command) REFERENCES Commands(id_c) ON UPDATE CASCADE
+    ON DELETE CASCADE ,
     FOREIGN KEY (id_p) REFERENCES Products(id_p) ON UPDATE CASCADE 
     ON DELETE CASCADE 
 );
 
-SELECT * FROM Categories;
+SELECT * FROM Commands;
+
 INSERT INTO Categories (name, img) VALUES
                            ('MAC' , 'https://store.storeimages.cdn-apple.com/4982/as-images.apple.com/is/store-card-13-mac-nav-202410?wid=400&hei=260&fmt=png-alpha&.v=1728342368663') ,
                            ('iPhone' , 'https://store.storeimages.cdn-apple.com/4982/as-images.apple.com/is/store-card-13-mac-nav-202410?wid=400&hei=260&fmt=png-alpha&.v=1728342368663') ,

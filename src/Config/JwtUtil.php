@@ -44,7 +44,6 @@ class JwtUtil {
 
             // Accessing the 'user_id' claim
             $userId = $decodedArray['id'];
-
              return $userId;
         } catch (\Firebase\JWT\ExpiredException $e) {
             return -3; // Token is invalid due to expiration
