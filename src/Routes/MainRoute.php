@@ -41,31 +41,32 @@ class MainRoute{
     public function Dispatch() {
         $endpoint = strtok($this->uri, '?');
         header('Content-Type: application/json');
-        $isFound=false;
-        foreach ($this->routes[$this->method] as $routeaction => $routeObj) {
-            if ($routeaction === $endpoint) {
-                $class = $routeObj->getClass();
-                $method = $routeObj->getMethod();
-                $middleware = $routeObj->getMiddleware();
-                $class =new $class();
-                if($middleware){
-                    $response = $middleware::handle(function () use ($class, $method) {
-                        return $class->$method();
-                    });
-                    echo json_encode($response);
-                    return ;
-                }
-                echo json_encode($class->$method());
-                $isFound = true;
-                return;
-            }
-        }
-        if(!$isFound){
-                echo json_encode([
-                    "status" => false,
-                    "message" => "Invalid Route"
-                ]);
-        }
+        print_r($this->routes[$this->method]);
+//        $isFound=false;
+//        foreach ($this->routes[$this->method] as $routeaction => $routeObj) {
+//            if ($routeaction === $endpoint) {
+//                $class = $routeObj->getClass();
+//                $method = $routeObj->getMethod();
+//                $middleware = $routeObj->getMiddleware();
+//                $class =new $class();
+//                if($middleware){
+//                    $response = $middleware::handle(function () use ($class, $method) {
+//                        return $class->$method();
+//                    });
+//                    echo json_encode($response);
+//                    return ;
+//                }
+//                echo json_encode($class->$method());
+//                $isFound = true;
+//                return;
+//            }
+//        }
+//        if(!$isFound){
+//                echo json_encode([
+//                    "status" => false,
+//                    "message" => "Invalid Route"
+//                ]);
+//        }
     }
 
 }

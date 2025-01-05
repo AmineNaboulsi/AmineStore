@@ -29,7 +29,7 @@ class ControllerProduct{
     }
     public function Save()
     {
-        $parametres = ['name' , 'price' , 'stock','img'];
+        $parametres = ['name' , 'price' , 'stock','img','cd_id'];
         $findmissingpara = array_filter($parametres , function($para){
             return !isset($_POST[$para]);
         });
@@ -40,7 +40,7 @@ class ControllerProduct{
                 $_POST["img"] ,
                 $_POST["name"] ,
                 $_POST["price"] ,
-                $_POST["stock"]);
+                $_POST["stock"] , $_POST["cd_id"]);
             $NewProduct->setDescription(isset($_POST["description"]) ? $_POST["description"] : "");
             $NewProduct->setProjected(isset($_POST["projected"]) ? (bool)$_POST["projected"] : 1);
             return $ProductRepository->Save($NewProduct);
@@ -54,34 +54,45 @@ class ControllerProduct{
     }
     public function UpdateProduct()
     {
-        $parametres = ['name' , 'price' , 'stock','img'];
+        $parametres = ['id','name' , 'price' , 'stock','img'];
         $findmissingpara = array_filter($parametres , function($para){
-            return !isset($_POST[$para]);
+            return !isset($_GET[$para]);
         });
         if(!$findmissingpara){
-
             $ProductRepository =new ProductRepository();
             $NewProduct =new Product(
-                $_POST["img"] ,
-                $_POST["name"] ,
-                $_POST["price"] ,
-                $_POST["stock"]);
-            $NewProduct->setDescription(isset($_POST["description"]) ? $_POST["description"] : "");
-            $NewProduct->setProjected(isset($_POST["projected"]) ? (bool)$_POST["projected"] : 1);
-            return $ProductRepository->Save($NewProduct);
+                $_GET["img"] ,
+                $_GET["name"] ,
+                $_GET["price"] ,
+                $_GET["stock"]);
+            $NewProduct->setId($_GET['id']);
+            $NewProduct->setDescription(isset($_GET["description"]) ? $_GET["description"] : "");
+            $NewProduct->setProjected(isset($_GET["projected"]) ? (bool)$_GET["projected"] : 1);
+            return $ProductRepository->findByIdAndUpdate($NewProduct);
         }else{
             return [
                 "status" => false ,
                 "message" => "Missing parametres" ,
             ];
         }
-        $ProductRepository =new ProductRepository();
-        
     }
     public function DelProduct()
     {
-        $ProductRepository =new ProductRepository();
-        
+        $parametres = ['id'];
+        $findmissingpara = array_filter($parametres , function($para){
+            return !isset($_GET[$para]);
+        });
+        if(!$findmissingpara){
+            $ProductRepository =new ProductRepository();
+            $NewProduct =new Product();
+            $NewProduct->setId($_GET['id']);
+            return $ProductRepository->findByIdAndDelete($NewProduct);
+        }else{
+            return [
+                "status" => false ,
+                "message" => "Missing parametres" ,
+            ];
+        }
     }
 
 }

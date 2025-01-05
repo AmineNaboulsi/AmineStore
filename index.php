@@ -21,4 +21,10 @@ $MainRoute->post('/addproduct' ,ControllerProduct::class, "Save" , AuthMiddlewar
 $MainRoute->put('/updateproduct' ,ControllerProduct::class, "UpdateProduct" , AuthMiddleware::class);
 $MainRoute->delete('/delproduct' ,ControllerProduct::class, "DelProduct" , AuthMiddleware::class);
 
+$MainRoute->get('/getproducts' ,ControllerProduct::class, "Find");
+$MainRoute->post('/addproduct' ,ControllerProduct::class, "Save" , AuthMiddleware::class);
+$MainRoute->put('/updateproduct' ,ControllerProduct::class, "UpdateProduct" , AuthMiddleware::class);
+$MainRoute->delete('/delproduct' ,ControllerProduct::class, "DelProduct" , AuthMiddleware::class);
+
+
 $MainRoute->Dispatch();

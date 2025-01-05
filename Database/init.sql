@@ -9,8 +9,7 @@ CREATE TABLE Users
     Active INT ,
     PRIMARY KEY (id_u)
 );
-
-SELECT password FROM Users ;
+show tables ;
 CREATE TABLE Roles
 (
     id_r INT AUTO_INCREMENT ,
@@ -26,14 +25,16 @@ CREATE TABLE Commands
     id_c INT AUTO_INCREMENT ,
     date_c Date NOT NULL,
     PRIMARY KEY (id_c)
-);  
+);
 
 CREATE TABLE Categories
 (
     id_ca INT AUTO_INCREMENT ,
-    date_c Date NOT NULL,
+    Name VARCHAR(150) NOT NULL,
+    img VARCHAR(1000) NOT NULL,
     PRIMARY KEY (id_ca)
-);  
+);
+
 CREATE TABLE Products
 (
     id_p INT AUTO_INCREMENT ,
@@ -43,9 +44,10 @@ CREATE TABLE Products
     quantité INT NOT NULL,
     projected INT ,
     img VARCHAR(1000) ,
-    PRIMARY KEY (id_p)
-);  
-
+    categorie_id INT ,
+    PRIMARY KEY (id_p),
+    foreign key (categorie_id) REFERENCES Categories(id_ca) ON DELETE SET NULL
+);
 CREATE TABLE CommandDetails
 (
     id_cd INT AUTO_INCREMENT ,

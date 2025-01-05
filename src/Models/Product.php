@@ -10,16 +10,18 @@ class Product{
     private float $price;
     private string $description;
     private int $stock;
+    private int $categorie_id;
     private bool $projected;
     private string $img;
 
     /* Constrecteur declaration */
-    public function __construct($img , $name , $price , $stock )
+    public function __construct($img="", $name="" , $price=0 , $stock=0 , $categorie_id = -1)
     {
         $this->name = $name;
         $this->price = $price;
         $this->stock = $stock;
         $this->img = $img;
+        $this->categorie_id = $categorie_id;
     }
 
     /* accesseur declaration */

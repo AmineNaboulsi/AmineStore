@@ -12,10 +12,6 @@ use App\Repository\UserRepository;
 
 class controlleruser{
 
-    public function __construct()
-    {
-        
-    }
     public function signup(){
         $parametres = ["name" , "email" , "password"];
         $missingparam = array_filter($parametres , function($parametre){

@@ -105,28 +105,20 @@ class ProductRepository{
     // Delete product from database
     public function findByIdAndDelete(Product $product): array {
         $con = Connection::getConnection();
-        $sqlDataReader =  $con->prepare("UPDATE Products 
-        SET name=:name ,prix=:price ,description=:description ,quantité=:stock ,projected=:projected ,img=:img 
+        $sqlDataReader =  $con->prepare("DELETE FROM Products 
         WHERE id_p=:id_p");
-
         if(
             $sqlDataReader->execute([
-            ":id_p" => $product->getId() ,
-            ":name" => $product->getName() ,
-            ":price" => $product->getPrice() ,
-            ":description" => $product->getDescription() ,
-            ":stock" =>$product->getStock() ,
-            ":projected" => $product->isProjected()?1:0 ,
-            ":img" =>$product->getImg() 
+            ":id_p" => $product->getId()
         ]) ) 
             return [
                 "status" => true ,
-                "message" => "Product Updated on Successfuly"
+                "message" => "Product Deleted Successfuly"
             ];
             else 
             return [
                 "status" => false ,
-                "message" => "Failed to Updated Product, Please try later"
+                "message" => "Failed to Deleted Product, Please try later"
             ];
     }
 
