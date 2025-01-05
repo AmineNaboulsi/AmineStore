@@ -9,7 +9,6 @@ CREATE TABLE Users
     Active INT ,
     PRIMARY KEY (id_u)
 );
-show tables ;
 CREATE TABLE Roles
 (
     id_r INT AUTO_INCREMENT ,
@@ -62,4 +61,10 @@ CREATE TABLE CommandDetails
     ON DELETE CASCADE 
 );
 
-
+SELECT * FROM Categories;
+INSERT INTO Categories (name, img) VALUES
+                           ('MAC' , 'https://store.storeimages.cdn-apple.com/4982/as-images.apple.com/is/store-card-13-mac-nav-202410?wid=400&hei=260&fmt=png-alpha&.v=1728342368663') ,
+                           ('iPhone' , 'https://store.storeimages.cdn-apple.com/4982/as-images.apple.com/is/store-card-13-mac-nav-202410?wid=400&hei=260&fmt=png-alpha&.v=1728342368663') ,
+                           ('iPad' , 'https://store.storeimages.cdn-apple.com/4982/as-images.apple.com/is/store-card-13-ipad-nav-202405?wid=400&hei=260&fmt=png-alpha&.v=1714168620875') ,
+                           ('Apple Watch' , 'https://store.storeimages.cdn-apple.com/4982/as-images.apple.com/is/store-card-13-watch-nav-202409?wid=400&hei=260&fmt=png-alpha&.v=1724165625838') ,
+                           ('AirPods' , 'https://store.storeimages.cdn-apple.com/4982/as-images.apple.com/is/store-card-13-airpods-nav-202409?wid=400&hei=260&fmt=png-alpha&.v=1722974349822') ;

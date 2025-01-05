@@ -22,10 +22,10 @@ class UserRepository{
         if($sqldataReader){
             $Client = new Client('d','q','d');
             return [
-                "Data" => $Client->__toString()
+                "Data" => $Client->toObject()
             ];
         }else{
-            return null;
+            return [];
         }
     }
     // create new account

@@ -5,6 +5,8 @@ require __DIR__ .'/vendor/autoload.php';
 use App\Routes\MainRoute;
 use App\Controller\controlleruser;
 use App\Controller\ControllerProduct;
+use App\Controller\ControllerCategories;
+use App\Controller\ControllerCommands;
 use App\Middleware\AuthMiddleware;
 
 $method = $_SERVER['REQUEST_METHOD'];
@@ -21,10 +23,15 @@ $MainRoute->post('/addproduct' ,ControllerProduct::class, "Save" , AuthMiddlewar
 $MainRoute->put('/updateproduct' ,ControllerProduct::class, "UpdateProduct" , AuthMiddleware::class);
 $MainRoute->delete('/delproduct' ,ControllerProduct::class, "DelProduct" , AuthMiddleware::class);
 
-$MainRoute->get('/getproducts' ,ControllerProduct::class, "Find");
-$MainRoute->post('/addproduct' ,ControllerProduct::class, "Save" , AuthMiddleware::class);
-$MainRoute->put('/updateproduct' ,ControllerProduct::class, "UpdateProduct" , AuthMiddleware::class);
-$MainRoute->delete('/delproduct' ,ControllerProduct::class, "DelProduct" , AuthMiddleware::class);
+$MainRoute->get('/getcategories' ,ControllerCategories::class, "Find");
+$MainRoute->post('/addcategorie' ,ControllerCategories::class, "Save" , AuthMiddleware::class);
+$MainRoute->put('/updatecategorie' ,ControllerCategories::class, "UpdateCategorie" , AuthMiddleware::class);
+$MainRoute->delete('/delcategorie' ,ControllerCategories::class, "DeleteCategorie" , AuthMiddleware::class);
+
+
+$MainRoute->get('/getcommand' ,ControllerCommands::class, "Find" , AuthMiddleware::class);
+$MainRoute->post('/command' ,ControllerCommands::class, "Command" , AuthMiddleware::class);
+$MainRoute->delete('/cancelcommand' ,ControllerCommands::class, "DeleteCommand" , AuthMiddleware::class);
 
 
 $MainRoute->Dispatch();
