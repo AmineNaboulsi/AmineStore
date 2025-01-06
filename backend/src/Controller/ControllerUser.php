@@ -8,6 +8,7 @@ require realpath(
 
 use App\Models\Client;
 use App\Repository\UserRepository;
+use App\Middleware\AuthMiddleware;
 
 
 class controlleruser{
@@ -15,7 +16,7 @@ class controlleruser{
     public function signup(){
         $parametres = ["name" , "email" , "password"];
         $missingparam = array_filter($parametres , function($parametre){
-            if(!isset($_POST[$parametre])) return $parametre;
+            if(!isset($_POST[$parametre]) && empty($_POST[$parametre])) return $parametre;
         });
         if(!$missingparam){
 
@@ -91,5 +92,8 @@ class controlleruser{
         return $UserRepository->Find();
     }
 
+    public function validetk()  {
+        return AuthMiddleware::isValideTK();
+    }
 }
 ?>

@@ -8,6 +8,9 @@ import Product from './pages/Product'
 import SignIn from './pages/SignIn'
 import SignUp from './pages/SignUp'
 import NotFound from './pages/NotFound'
+import ValidationAuth from './Middleware/ValidationAuth'
+
+const CartWithAuth = ValidationAuth(Contact);
 
 function App() {
 
@@ -19,7 +22,7 @@ function App() {
           <Route path="/shop" index element={<Shop />} />
           <Route path="/about" index element={<About />} />
           <Route path="/cart" index element={<Cart />} />
-          <Route path="/contact" index element={<Contact />} />
+          <Route path="/contact" index element={<CartWithAuth />} />
           <Route path="/product" index element={<Product />} />
           <Route path="/signup" index element={<SignUp />} />
           <Route path="/signin" index element={<SignIn />} />

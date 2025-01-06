@@ -9,6 +9,8 @@ use App\Controller\ControllerCategories;
 use App\Controller\ControllerCommands;
 use App\Middleware\AuthMiddleware;
 
+header('Access-Control-Allow-Origin : *');
+
 $method = $_SERVER['REQUEST_METHOD'];
 $endpoint = $_SERVER["REQUEST_URI"];
 
@@ -18,6 +20,7 @@ $MainRoute =new MainRoute($method , $endpoint);
 $MainRoute->post('/signup' ,ControllerUser::class, "signup");
 $MainRoute->post('/signin' ,ControllerUser::class, "signin");
 $MainRoute->get('/getclients' ,ControllerUser::class, "Find" , AuthMiddleware::class , true);
+$MainRoute->post('/validetk' ,ControllerUser::class, "validetk");
 
 //activeaccount method handle also desactivation
 $MainRoute->patch('/activeaccount' ,ControllerUser::class, "ActiveAccount" , AuthMiddleware::class, true);

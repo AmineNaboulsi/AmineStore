@@ -42,7 +42,32 @@ class AuthMiddleware{
     {
         return ValidationMiddleware::Verification();
     }
-
+    public static function isValideTK()
+    {
+        if (ValidationMiddleware::Verification()==-1) {
+            http_response_code(401);
+            return [
+                "isValid" => false,
+                "message" => "Unauthorized access. Please log in."
+            ];
+        }else if (ValidationMiddleware::Verification()==-2) {
+            http_response_code(401);
+            return [
+                "isValid" => false,
+                "message" => "Token Expired. Please log in."
+            ];
+        }else if (ValidationMiddleware::Verification()==-3) {
+            http_response_code(401);
+            return [
+                "isValid" => false,
+                "message" => "Unauthorization failed. Please log in."
+            ];
+        }
+        return [
+            "isValid" => true,
+            "message" => "Valide Token"
+        ];
+    }
 }
 
 ?>
