@@ -41,13 +41,19 @@ class UserRepository{
     public function SignIn(string $email, string $password)
     {
         $con = Connection::getConnection();
-        $sqldataReader = $con->prepare("SELECT id_u, password FROM Users WHERE email=:email");
+        $sqldataReader = $con->prepare("SELECT id_u, password , Active FROM Users WHERE email=:email");
         $sqldataReader->execute([
             ":email" => $email
         ]);
         $sqldataReader = $sqldataReader->fetch();
         if($sqldataReader){
              if(password_verify($password, $sqldataReader['password'] )){
+                if($sqldataReader['Active']==0){
+                    return [
+                        "status" => false,
+                        "message" => "Your account closed for the moment, please try again later"
+                    ];
+                }
                  $user = new Client('',$email,'');
                  $user->id = $sqldataReader['id_u'] ;
                  return [
@@ -127,11 +133,11 @@ class UserRepository{
                 "status" => true,
                 "message" => "Account created successfully."
             ];
-        } catch (Exception $e) {
+        } catch (\Exception $e) {
             $con->rollBack();
             return [
                 "status" => false,
-                "message" => "An error occurred: " . $e->getMessage()
+                "message" => "An error occurred: Failed to createthis account " 
             ];
         }
     }

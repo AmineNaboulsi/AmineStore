@@ -17,7 +17,7 @@ class Client extends User /* implements ClientPrivileges */ {
 
     public bool $Active;
     public array $Panier ;
-    public function __construct($name , $email , $password)
+    public function __construct($name="" , $email="" , $password="")
     {
         parent::__construct($name , $email , $password);
     }

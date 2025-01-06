@@ -4,6 +4,7 @@ namespace App\Repository;
 
 use App\Config\Connection;
 use App\Models\Product;
+use Exception;
 
 class ProductRepository{
 
@@ -125,6 +126,7 @@ class ProductRepository{
             ];
     }
 
+
     // Delete product from database
     public function findByIdAndDelete(Product $product): array {
         $con = Connection::getConnection();
@@ -160,7 +162,6 @@ class ProductRepository{
             return false;
         }
     }
-
 }
 
 ?>

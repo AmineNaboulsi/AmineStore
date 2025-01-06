@@ -31,7 +31,6 @@ class CommandRepositiory
             $IdCat = $con->lastInsertId();
             foreach ($command as $key => $value) {
             $ProductRepository = new ProductRepository();
-
                 $sqlDataReader = $con->prepare("INSERT INTO CommandDetails 
                     (id_command ,id_c , id_p , quantité , Status) VALUES 
                     (:id_command , :id_c , :id_p , :quantite , :status ) ");
@@ -47,6 +46,8 @@ class CommandRepositiory
                         ":quantite" => $quantité ,
                         ":status" => 0
                     ]);
+                    $this->UpdateProjectStock($con , $value->getIdP() , $value->getQuantiter());
+                
                 }
                     else {
                         $ProductRepository = new ProductRepository();
@@ -59,7 +60,7 @@ class CommandRepositiory
                         ];
                     }
                 }
-            $con->commit();
+                $con->commit();
             return [
                 "status" => true,
                 "message" => "Command saved"
@@ -68,7 +69,7 @@ class CommandRepositiory
             $con->rollBack();
             return [
                 "status" => false,
-                "message" => "Failed to save command"
+                "message" => "Failed to save command " .$e->getMessage()
             ];
         }
     }
@@ -83,5 +84,26 @@ class CommandRepositiory
             "status" => true,
             "message" => "Command deleted"
         ];
+    }
+
+
+    public function UpdateProjectStock($con , $productid , $qantiter): bool {
+
+            $sqlDataReader =  $con->prepare("UPDATE Products 
+        SET quantité = quantité - :quantite  
+        WHERE id_p=:id_p");
+        if(
+            $sqlDataReader->execute([
+                ":quantite" => $qantiter,
+                ":id_p" => $productid 
+                ]) )
+                {
+                    return true;
+                    
+                } 
+                else{
+                    return false;
+                }
+           
     }
 }

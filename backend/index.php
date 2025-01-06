@@ -29,9 +29,9 @@ $MainRoute->patch('/projectproduct' ,ControllerProduct::class, "ProjectProduct" 
 $MainRoute->delete('/delproduct' ,ControllerProduct::class, "DelProduct" , AuthMiddleware::class);
 
 $MainRoute->get('/getcategories' ,ControllerCategories::class, "Find");
-$MainRoute->post('/addcategorie' ,ControllerCategories::class, "Save" , AuthMiddleware::class);
-$MainRoute->put('/updatecategorie' ,ControllerCategories::class, "UpdateCategorie" , AuthMiddleware::class);
-$MainRoute->delete('/delcategorie' ,ControllerCategories::class, "DeleteCategorie" , AuthMiddleware::class);
+$MainRoute->post('/addcategorie' ,ControllerCategories::class, "Save" , AuthMiddleware::class  , true);
+$MainRoute->put('/updatecategorie' ,ControllerCategories::class, "UpdateCategorie" , AuthMiddleware::class , true);
+$MainRoute->delete('/delcategorie' ,ControllerCategories::class, "DeleteCategorie" , AuthMiddleware::class , true);
 
 $MainRoute->get('/getcommand' ,ControllerCommands::class, "Find" , AuthMiddleware::class);
 $MainRoute->post('/command' ,ControllerCommands::class, "Command" , AuthMiddleware::class);
