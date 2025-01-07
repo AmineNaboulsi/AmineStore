@@ -1,41 +1,58 @@
 import { useNavigate } from 'react-router-dom';
 import Cookies from 'js-cookie';
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
+import LoadingPage  from '../Components/LoadingPage';
 
-const ValidationAuth = (Component: any) => {
-  return (props: any) => {
+function ValidationAuth(Component) {
+  return function GetPage() {
     const navigate = useNavigate();
+    const [isValidating, setIsValidating] = useState(true);
+    const authToken = Cookies.get('auth-token');
 
     useEffect(() => {
-      const authToken = Cookies.get('auth-token');
-
-      if (!authToken) {
-        navigate('/');
-      } else {
-        const apiUrl = import.meta.env.VITE_APP_API_URL;
-
-        fetch(`${apiUrl}/validetk`, {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json',
-          },
-          body: JSON.stringify({ usertk: authToken }),
-        })
-          .then((res) => res.json())
-          .then((data) => {
-            if (!data.isValid) {
-              navigate('/signin');
-            }
-          })
-          .catch((error) => {
-            console.error('Error validating token:', error);
+      const verifyToken = async () => {
+        try {
+          if (!authToken) {
             navigate('/signin');
-          });
-      }
-    }, [navigate]);
+            return;
+          }
 
-    return <Component {...props} />;
+          const apiUrl = import.meta.env.VITE_APP_API_URL;
+          const res = await fetch(`${apiUrl}/validetk`, {
+            method: 'POST',
+            headers: {
+              Authorization: `Bearer ${authToken}`,
+              'Content-Type': 'application/json',
+            },
+          });
+
+          if (!res.ok) {
+            navigate('/signin');
+            return;
+          }
+
+          const data = await res.json();
+          if (!data.isValid) {
+            navigate('/signin');
+            return;
+          }
+
+          setIsValidating(false);
+        } catch (error) {
+          console.error('Token validation error:', error);
+          navigate('/signin');
+        }
+      };
+      verifyToken();
+  
+    }, [authToken, navigate]);
+
+    if (isValidating) {
+      return <LoadingPage />;
+    }
+
+    return <Component />;
   };
-};
+}
 
 export default ValidationAuth;

@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import { TfiLayoutLineSolid } from "react-icons/tfi";
+import { Link } from "react-router-dom";
 
 type NavItemType = {
     name : string , url : string
@@ -10,10 +11,10 @@ function Header() {
     useEffect(()=>{
         const fillData = ()=>{
             setNavItem([
-                {name : 'Home' , url : ''} ,
-                {name : 'Shop' , url : ''} ,
-                {name : 'About' , url : ''} ,
-                {name : 'Contact' , url : ''} ,
+                {name : 'Home' , url : '/'} ,
+                {name : 'Shop' , url : '/shop'} ,
+                {name : 'About' , url : '/about'} ,
+                {name : 'Contact' , url : '/contact'} ,
             ]);
         }
         fillData();
@@ -26,7 +27,9 @@ function Header() {
                     <div className="grid grid-cols-8 gap-5 items-center">
                         {NavItem && NavItem.map((item : NavItemType , i :number)=>(
                             <>
-                                <span key={i} className="transition-all hover:font-semibold hover:underline w-10 cursor-pointer">{item?.name}</span>
+                                <Link to={item.url}>
+                                    <span key={i} className="transition-all hover:font-semibold hover:underline w-10 cursor-pointer">{item?.name}</span>
+                                </Link>
                                 {NavItem.length > i+1 && (<TfiLayoutLineSolid height={1} className="rotate-90 text-gray-400 " />) }
                             </>
                         ))}

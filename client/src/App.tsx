@@ -10,7 +10,12 @@ import SignUp from './pages/SignUp'
 import NotFound from './pages/NotFound'
 import ValidationAuth from './Middleware/ValidationAuth'
 
-const CartWithAuth = ValidationAuth(Contact);
+const HomeWithAuth = ValidationAuth(Home);
+const ShopWithAuth = ValidationAuth(Shop);
+const AboutWithAuth = ValidationAuth(About);
+const ProductWithAuth = ValidationAuth(Product);
+const CartWithAuth = ValidationAuth(Cart);
+const ContactWithAuth = ValidationAuth(Contact);
 
 function App() {
 
@@ -18,12 +23,12 @@ function App() {
     <div className="bg-[#F5F5F3]">
       <BrowserRouter>
         <Routes>
-          <Route path="/" index element={<Home />} />
-          <Route path="/shop" index element={<Shop />} />
-          <Route path="/about" index element={<About />} />
-          <Route path="/cart" index element={<Cart />} />
-          <Route path="/contact" index element={<CartWithAuth />} />
-          <Route path="/product" index element={<Product />} />
+          <Route path="/" index element={<HomeWithAuth />} />
+          <Route path="/shop" index element={<ShopWithAuth />} />
+          <Route path="/about" index element={<AboutWithAuth />} />
+          <Route path="/cart" index element={<CartWithAuth />} />
+          <Route path="/contact" index element={<ContactWithAuth />} />
+          <Route path="/product" index element={<ProductWithAuth />} />
           <Route path="/signup" index element={<SignUp />} />
           <Route path="/signin" index element={<SignIn />} />
           <Route path="*" element={<NotFound />} />

@@ -10,6 +10,7 @@ use App\Controller\ControllerCommands;
 use App\Middleware\AuthMiddleware;
 
 header('Access-Control-Allow-Origin : *');
+header('Access-Control-Allow-Headers : *');
 
 $method = $_SERVER['REQUEST_METHOD'];
 $endpoint = $_SERVER["REQUEST_URI"];
