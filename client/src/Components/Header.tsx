@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { TfiLayoutLineSolid } from "react-icons/tfi";
 import { Link } from "react-router-dom";
+import { FaCartShopping } from "react-icons/fa6";
 
 type NavItemType = {
     name : string , url : string
@@ -28,7 +29,8 @@ function Header() {
                         {NavItem && NavItem.map((item : NavItemType , i :number)=>(
                             <>
                                 <Link to={item.url}>
-                                    <span key={i} className="transition-all hover:font-semibold hover:underline w-10 cursor-pointer">{item?.name}</span>
+                                
+                                        <span key={i} className="transition-all hover:font-semibold hover:underline w-10 cursor-pointer">{item?.name}</span>
                                 </Link>
                                 {NavItem.length > i+1 && (<TfiLayoutLineSolid height={1} className="rotate-90 text-gray-400 " />) }
                             </>

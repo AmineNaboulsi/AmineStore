@@ -4,6 +4,7 @@ namespace App\Repository;
 
 use App\Config\Connection;
 use App\Models\Product;
+use App\Models\Categorie;
 use Exception;
 
 class ProductRepository{
@@ -11,8 +12,9 @@ class ProductRepository{
     // Find product by ID
     public function findById(int $id) {
         $con = Connection::getConnection();
-        $sqlDataReader =  $con->prepare("SELECT * FROM Products
-         WHERE id_p=:id_p");
+        $sqlDataReader =  $con->prepare("SELECT p.* , c.`Name` as categoriename FROM `Products` p
+            JOIN `Categories` c  on c.id_ca = p.categorie_id
+            WHERE id_p=:id_p");
 
         $sqlDataReader->execute([
             ":id_p" => $id 
@@ -22,16 +24,16 @@ class ProductRepository{
         if($Product){
             $ProductF = $Product[0];
             // var_dump($ProductF);
+            $Categorie = new Categorie($ProductF['categoriename']);
             $ProductFound = new Product(
                 $ProductF['img'] ,
                 $ProductF['name'],
                 $ProductF['prix'],
-                $ProductF['quantité']);
+                $ProductF['quantité'],$Categorie);
 
             $ProductFound->setDescription($ProductF['description']);
             $ProductFound->setId($ProductF['id_p']);
             $ProductFound->setProjected((bool)$ProductF['projected']);
-            
             return $ProductFound->getObject();
 
        }else{
@@ -40,7 +42,8 @@ class ProductRepository{
     }
     public function Find() {
         $con = Connection::getConnection();
-        $sqlDataReader =  $con->prepare("SELECT * FROM Products");
+        $sqlDataReader =  $con->prepare("SELECT p.* , c.`Name` as categoriename FROM `Products` p
+        JOIN `Categories` c  on c.id_ca = p.categorie_id");
 
         $sqlDataReader->execute();
 

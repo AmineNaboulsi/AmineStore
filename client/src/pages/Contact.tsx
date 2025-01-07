@@ -1,7 +1,14 @@
+import Header from "../Components/Header.tsx"
+import CartPanel from '../Components/CartPanel'
 
 function Contact() {
   return (
-    <div>Contact</div>
+    <div>
+      <Header />
+      <CartPanel />
+
+      Contact
+    </div>
   )
 }
 

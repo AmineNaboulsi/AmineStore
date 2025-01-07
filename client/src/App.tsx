@@ -9,7 +9,7 @@ import SignIn from './pages/SignIn'
 import SignUp from './pages/SignUp'
 import NotFound from './pages/NotFound'
 import ValidationAuth from './Middleware/ValidationAuth'
-
+import './index.css'
 const HomeWithAuth = ValidationAuth(Home);
 const ShopWithAuth = ValidationAuth(Shop);
 const AboutWithAuth = ValidationAuth(About);
@@ -18,10 +18,10 @@ const CartWithAuth = ValidationAuth(Cart);
 const ContactWithAuth = ValidationAuth(Contact);
 
 function App() {
-
   return (
-    <div className="bg-[#F5F5F3]">
+    <div className="container bg-[#F5F5F3]">
       <BrowserRouter>
+
         <Routes>
           <Route path="/" index element={<HomeWithAuth />} />
           <Route path="/shop" index element={<ShopWithAuth />} />

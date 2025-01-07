@@ -1,5 +1,4 @@
 import { useEffect, useState } from "react"
-import Cookies from 'js-cookie';
 import { jwtDecode } from "jwt-decode";
 import { GoogleOAuthProvider, GoogleLogin } from '@react-oauth/google';
 import { useNavigate } from "react-router-dom";
@@ -7,6 +6,16 @@ import { useNavigate } from "react-router-dom";
 type ImageCoverType ={
     img : string,
     colorbg : string
+}
+interface DecodedToken {
+  name: string;
+  email: string;
+  sub: string;
+}
+interface ResponseSignin{
+  message: string ,
+  status: boolean|null,
+  isloading : boolean
 }
 function SignUp() {
   const navigate = useNavigate();
@@ -53,7 +62,7 @@ function SignUp() {
             colorbg : '#C4C4C4'
         }
     ]);
-    const [loading , isloading ] = useState({
+    const [loading , isloading ] = useState<ResponseSignin>({
         message: '' ,
         status: null,
         isloading : false
@@ -105,7 +114,7 @@ function SignUp() {
               }));
           })
           .catch((error) => {
-              isloading((prev:any)=>({
+              isloading((prev:ResponseSignin)=>({
                   ...prev ,
                   message : error ,
                   status : false
@@ -114,14 +123,14 @@ function SignUp() {
           .finally(() => {
               isloading((prev)=>({
                   ...prev ,
-                  isloading : false
+                  isloadingd : false
               }));
           });
     }
     const handleSuccess = (credentialResponse:any) => {
       
       const credential = credentialResponse.credential;
-      const decoded = jwtDecode(credential);
+      const decoded = jwtDecode<DecodedToken>(credential);
 
       const formData = new FormData();
       formData.append('name'  ,decoded.name);

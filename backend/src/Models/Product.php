@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Models\Categorie;
 class Product{
     
     /* Attribute declaration */
@@ -10,18 +11,18 @@ class Product{
     private float $price;
     private string $description;
     private int $stock;
-    private int $categorie_id;
+    private Categorie $categorie;
     private bool $projected;
     private string $img;
 
     /* Constrecteur declaration */
-    public function __construct($img="", $name="" , $price=0 , $stock=0 , $categorie_id = -1)
+    public function __construct($img="", $name="" , $price=0 , $stock=0 , $categorie = new Categorie())
     {
         $this->name = $name;
         $this->price = $price;
         $this->stock = $stock;
         $this->img = $img;
-        $this->categorie_id = $categorie_id;
+        $this->categorie = $categorie ;
     }
 
     /* accesseur declaration */
@@ -37,14 +38,14 @@ class Product{
     public function setDescription(string $description) : void { $this->description = $description;}
     public function setProjected(bool $isProjected) : void { $this->projected = $isProjected;}
 
-    public function getCategorieId(): int
+    public function getCategorie(): Categorie
     {
-        return $this->categorie_id;
+        return $this->categorie;
     }
 
-    public function setCategorieId(int $categorie_id): void
+    public function setCategorieId(Categorie $categorie_id): void
     {
-        $this->categorie_id = $categorie_id;
+        $this->categorie = $categorie_id;
     }
 
     public function getIdP(): int
@@ -67,7 +68,7 @@ class Product{
         
     }
 
-
+    //* Affiche data */
     public function getObject()
     {
         return [
@@ -77,7 +78,8 @@ class Product{
             'description' => $this->description,
             'stock' => $this->stock,
             'projected' => $this->projected,
-            'img' => $this->img
+            'img' => $this->img ,
+            'categoriename' => $this->categorie->getName()
         ];
     }
 

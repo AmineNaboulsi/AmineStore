@@ -1,7 +1,13 @@
+import Header from "../Components/Header.tsx"
+import CartPanel from '../Components/CartPanel'
 
 function About() {
   return (
-    <div>About</div>
+    <div>
+    <Header />
+    <CartPanel />
+    About
+  </div>
   )
 }
 
