@@ -9,6 +9,7 @@ type ProductType  =  {
   id_p: number,
   name: string,
   prix: number,
+  subtotal: number,
   description: string,
   quantité: number,
   img: string,
@@ -21,7 +22,7 @@ const Shop = () => {
     fetch(`${url}/getproducts`)
     .then(res=>res.json())
     .then(data=>{
-      setproducts(data);
+      setproducts(data.map((item:ProductType)=>({...item , subtotal :  0})));
     })
   },[])
   return (

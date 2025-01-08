@@ -12,7 +12,7 @@ class CommandRepositiory
 
     public function Find(int $id){
         $con = Connection::getConnection();
-        $sqlDataReaderC = $con->prepare("select  p.name , p.prix , c.quantité , c.Status from CommandDetails as c
+        $sqlDataReaderC = $con->prepare("select c.id_command, c.`Status`, p.img, p.name , p.prix , c.quantité , c.Status from CommandDetails as c
             JOIN Products as p ON p.id_p = c.id_p
             WHERE id_c = :id");
         $sqlDataReaderC->execute([
@@ -85,8 +85,6 @@ class CommandRepositiory
             "message" => "Command deleted"
         ];
     }
-
-
     public function UpdateProjectStock($con , $productid , $qantiter): bool {
 
             $sqlDataReader =  $con->prepare("UPDATE Products 

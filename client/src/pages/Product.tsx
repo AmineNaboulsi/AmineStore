@@ -2,20 +2,25 @@ import { useEffect, useState } from "react"
 import Header from "../Components/Header.tsx"
 import { useNavigate, useSearchParams } from 'react-router-dom';
 import CartPanel from '../Components/CartPanel'
+import { AddToPanier } from "../Redux/Slices/Order.tsx";
+import { useDispatch  } from "react-redux";
 
 type ProductType  =  {
   id_p: number,
   name: string,
-  prix: number,
+  price: number,
+  subtotal: number,
   description: string,
   quantité: number,
   img: string,
   categoriename: string 
 }
 
+
 function Product() {
   const navigator = useNavigate()
-  const [Product , setProduct] = useState<ProductType>();
+  const dispatch = useDispatch();
+  const [Product , setProduct] = useState<ProductType | undefined>();
   const [searchParams] = useSearchParams();
   useEffect(()=>{
     const getProduct = () =>{
@@ -31,7 +36,14 @@ function Product() {
     getProduct();
      
   },[]);
-
+  const AddToPanier_ = () =>{
+    if (Product) {
+      dispatch(AddToPanier(Product!));
+      navigator('/cart');
+    } else {
+      console.error("Product is undefined. Cannot add to panier.");
+    }
+  }
   return (
     <div>
       <Header />
@@ -49,7 +61,7 @@ function Product() {
               <h2 className="text-4xl font-semibold">
                {Product?.name}
               </h2>
-              <p className="text-xl font-semibold">{Product?.prix}</p>
+              <p className="text-xl font-semibold">{Product?.price}</p>
               <p className="text-base text-gray-600">
                 Lorem ipsum dolor sit amet consectetur adipisicing elit. Hic excepturi quibusdam odio deleniti reprehenderit facilis.</p>
               <p className="text-sm">Be the first to leave a review.</p>
@@ -57,7 +69,9 @@ function Product() {
                 <span className="font-normal">Colors:</span>
                 Blank and White
               </p>
-              <button className="w-full py-4 bg-slate-900 hover:bg-black duration-300 text-white text-lg font-titleFont">
+              <button
+              onClick={AddToPanier_}
+              className="w-full py-4 bg-slate-900 hover:bg-black duration-300 text-white text-lg font-titleFont">
                 Add to Cart
               </button>
               <p className="font-normal text-sm">

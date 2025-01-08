@@ -10,6 +10,7 @@ import SignUp from './pages/SignUp'
 import NotFound from './pages/NotFound'
 import ValidationAuth from './Middleware/ValidationAuth'
 import './index.css'
+
 const HomeWithAuth = ValidationAuth(Home);
 const ShopWithAuth = ValidationAuth(Shop);
 const AboutWithAuth = ValidationAuth(About);

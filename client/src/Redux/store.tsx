@@ -3,9 +3,7 @@ import Order from './Slices/Order'
 
 
 export const store = configureStore({
-    reducer: {
-        Orderinfo : Order
-    }
+    reducer: Order 
 });
 
 export type RootState = ReturnType<typeof store.getState>

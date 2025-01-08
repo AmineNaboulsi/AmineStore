@@ -3,7 +3,7 @@ import Cookies from 'js-cookie';
 import { useEffect, useState } from 'react';
 import LoadingPage  from '../Components/LoadingPage';
 
-function ValidationAuth(Component) {
+function ValidationAuth(Component:any) {
   return function GetPage() {
     const navigate = useNavigate();
     const [isValidating, setIsValidating] = useState(true);

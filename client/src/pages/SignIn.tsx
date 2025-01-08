@@ -9,6 +9,22 @@ type ImageCoverType ={
     img : string,
     colorbg : string
 }
+type CredentialType ={
+    aud: string ,
+    azp: string,
+    email: string,
+    email_verified: boolean,
+    exp: number,
+    family_name: string,
+    given_name: string,
+    iat: number,
+    iss: string,
+    jti: string,
+    name: string,
+    nbf: number,
+    picture: string,
+    sub: string
+}
 function SignIn() {
     const navigate = useNavigate();
     const [RoundomImageCover] = useState<ImageCoverType[]>([
@@ -120,16 +136,17 @@ function SignIn() {
           });
     }
     const handleSuccess = (credentialResponse:any) => {
-      // Get the credential from Google
-      const credential = credentialResponse.credential;
       
-      // Decode the credential to get user information
-      const decoded = jwtDecode(credential);
-
-  
+      const credential = credentialResponse.credential;
+      const decoded = jwtDecode<CredentialType>(credential);
+      console.log(decoded)
       const formData = new FormData();
-      formData.append('email'  ,decoded.email);
-      formData.append('password'  ,decoded.sub);
+      if (decoded.email) {
+        formData.append('email', decoded.email);
+      } 
+      if (decoded.sub) {
+        formData.append('password', decoded.sub);
+      } 
       SignIn(formData)
     };
     return (

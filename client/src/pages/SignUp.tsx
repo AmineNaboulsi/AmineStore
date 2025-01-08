@@ -131,7 +131,6 @@ function SignUp() {
       
       const credential = credentialResponse.credential;
       const decoded = jwtDecode<DecodedToken>(credential);
-
       const formData = new FormData();
       formData.append('name'  ,decoded.name);
       formData.append('email'  ,decoded.email);
