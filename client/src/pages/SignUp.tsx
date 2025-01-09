@@ -92,8 +92,8 @@ function SignUp() {
         SignUp(formData)
     }
     const SignUp = (formData:FormData) =>{
-      
-          fetch("http://localhost:8484/signup", {
+        const url = import.meta.env.VITE_APP_API_URL;
+          fetch(`${url}/signup`, {
               method: "POST",
               body: formData,
           })
