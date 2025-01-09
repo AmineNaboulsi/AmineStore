@@ -2,7 +2,7 @@ import { useEffect, useState } from "react"
 import Cookies from 'js-cookie';
 import { jwtDecode } from "jwt-decode";
 import { useNavigate } from "react-router-dom";
-
+import { Link } from "react-router-dom";
 import { GoogleOAuthProvider, GoogleLogin } from '@react-oauth/google';
 
 type ImageCoverType ={
@@ -159,7 +159,11 @@ function SignIn() {
                 <div className="mb-6">
                 <h3 className="text-gray-800 text-3xl font-extrabold">Sign in to your account
                 </h3>
-                <p className="text-sm mt-2 text-gray-800">Don't have an account <a href="javascript:void(0);" className="text-blue-600 font-semibold hover:underline ml-1 whitespace-nowrap">Register here</a></p>
+                <p className="text-sm mt-2 text-gray-800">Don't have an account 
+                  <Link to="/signup" className="text-blue-600 font-semibold hover:underline ml-1 whitespace-nowrap">
+                    Register here
+                  </Link>
+                </p>
               </div>
 
               <div>

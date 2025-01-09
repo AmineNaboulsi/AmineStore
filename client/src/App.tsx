@@ -11,12 +11,12 @@ import NotFound from './pages/NotFound'
 import ValidationAuth from './Middleware/ValidationAuth'
 import './index.css'
 
-const HomeWithAuth = ValidationAuth(Home);
-const ShopWithAuth = ValidationAuth(Shop);
-const AboutWithAuth = ValidationAuth(About);
-const ProductWithAuth = ValidationAuth(Product);
+const HomeWithAuth = Home; // ValidationAuth(Home);
+const ShopWithAuth = Shop ; //ValidationAuth(Shop);
+const AboutWithAuth = About; //ValidationAuth(About);
+const ProductWithAuth = Product ; //ValidationAuth(Product);
 const CartWithAuth = ValidationAuth(Cart);
-const ContactWithAuth = ValidationAuth(Contact);
+const ContactWithAuth = Contact ; // ValidationAuth(Contact);
 
 function App() {
   return (
