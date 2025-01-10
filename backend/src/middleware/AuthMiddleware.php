@@ -65,6 +65,7 @@ class AuthMiddleware{
         }
         return [
             "isValid" => true,
+            "role" =>RoleMiddleware::GetRole() ,
             "message" => "Valide Token"
         ];
     }

@@ -38,7 +38,7 @@ class ControllerCommands{
         if (is_array($data)) {
             $Panier = array();
             foreach ($data as $row => $value ) {
-                $command = new Command($value->id_p , $value->quantite);
+                $command = new Command($value->id_p , $value->quantité  );
                 $command->setIdCa(AuthMiddleware::getUserId());
                 $Panier[] = $command;
             }

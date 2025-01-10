@@ -35,7 +35,7 @@ const SlicePanier = createSlice({
         
               if (existingProduct) {
                 existingProduct.quantité += action.payload.quantité || 1;
-                existingProduct.subtotal =  0;
+                existingProduct.subtotal =  existingProduct.price;
                 
             } else {
                   localStorage.setItem('panier' ,JSON.stringify(state.panier))
@@ -58,7 +58,7 @@ const SlicePanier = createSlice({
             state.panier.forEach(
                 (product:ProductType)=> {
                     if(product.id_p === action.payload.id_p){
-                        if(product?.quantité>0){ 
+                        if(product?.quantité>1){ 
                             product.quantité-- ;
                             product.subtotal = (Number(product.price )* Number(product.quantité));
                             localStorage.setItem('panier' ,JSON.stringify(state.panier))
@@ -66,9 +66,13 @@ const SlicePanier = createSlice({
                     }
                 }
             );
+        },
+        ClearPanier : (state) =>{
+            localStorage.removeItem('panier');
+            state.panier = [];
         }
     },
 });
 
-export const { AddToPanier , MoreQuaniter , LessQaniter} = SlicePanier.actions;
+export const { AddToPanier , MoreQuaniter , LessQaniter , ClearPanier} = SlicePanier.actions;
 export default SlicePanier.reducer;

@@ -61,7 +61,7 @@ function Product() {
               <h2 className="text-4xl font-semibold">
                {Product?.name}
               </h2>
-              <p className="text-xl font-semibold">{Product?.price}</p>
+              <p className="text-xl font-semibold">$ {Product?.price}</p>
               <p className="text-base text-gray-600">
                 Lorem ipsum dolor sit amet consectetur adipisicing elit. Hic excepturi quibusdam odio deleniti reprehenderit facilis.</p>
               <p className="text-sm">Be the first to leave a review.</p>

@@ -72,7 +72,6 @@ class ControllerProduct{
             ];
         }
     }
-
     public function ProjectProduct()
     {
         $parametres = ['id','projected'];
@@ -92,7 +91,6 @@ class ControllerProduct{
             ];
         }
     }
-
     public function DelProduct()
     {
         $parametres = ['id'];

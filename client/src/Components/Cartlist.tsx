@@ -1,9 +1,15 @@
 import { ImCross } from "react-icons/im";
 import { useDispatch, useSelector } from "react-redux";
-import { MoreQuaniter, LessQaniter } from "../Redux/Slices/Order";
+import { MoreQuaniter, LessQaniter , ClearPanier } from "../Redux/Slices/Order";
 import { RootState } from "../Redux/store";
-import { Link } from "react-router-dom";
-
+import { useNavigate } from "react-router-dom";
+import { useEffect, useState } from "react";
+import Cookies from "js-cookie";
+type SubTotal = {
+  Subtotal: number,
+  ShippingCharge :number,
+  Total: number,
+}
 type ProductType  =  {
   id_p: number,
   name: string,
@@ -14,14 +20,65 @@ type ProductType  =  {
   img: string,
   categoriename: string 
 }
+type messagecommandtype ={
+    status : boolean | null , 
+    message : string
+}
 function Cartlist() {
   const dispatch = useDispatch();
-    const productsStore = useSelector((state : RootState) => state.panier);
-  const AddQantiter = (id:number) =>{
-    dispatch(MoreQuaniter({id_p : id}))
-  }
-  const MinusQantiter = (id:number) =>{
-    dispatch(LessQaniter({id_p : id}))
+  const navigator = useNavigate();
+  const productsStore = useSelector((state : RootState) => state.panier);
+  const [GetCommand, isGetCommand] = useState<messagecommandtype>({
+    status : null , 
+    message : ''
+  });
+  const [SubTotal, setSubTotal] = useState({
+    Subtotal: 0,
+    ShippingCharge: 10,
+    Total: 0,
+  });
+
+  useEffect(() => {
+    const newSubtotal = productsStore.reduce(
+      (sum: number, item: ProductType) => sum + item.price * item.quantité, 
+      0
+    );
+
+    setSubTotal({
+      Subtotal: newSubtotal,
+      ShippingCharge: SubTotal.ShippingCharge, 
+      Total: newSubtotal + SubTotal.ShippingCharge,
+    });
+  }, [productsStore, SubTotal.ShippingCharge]);
+
+  const AddQantiter = (id: number) => {
+    dispatch(MoreQuaniter({ id_p: id }));
+  };
+
+  const MinusQantiter = (id: number) => {
+    dispatch(LessQaniter({ id_p: id }));
+  };
+
+  const CommandProducts = async() =>{
+    const authtk = Cookies.get('auth-token');
+    if(!authtk)
+        navigator('/signin');
+    const url = import.meta.env.VITE_APP_API_URL;
+    const resultat = await fetch(`${url}/command`,{
+      method: 'POST',
+      body : JSON.stringify(productsStore),
+      headers : {
+        Authorization : `Bearer ${authtk}`
+      }
+    })
+    const Data = await resultat.json();
+    console.log(Data);
+    setSubTotal((prev)=>({
+      ...prev,
+      status : Data.status , 
+      message : Data.message
+    }))
+    dispatch(ClearPanier())
   }
   return (
     <div>
@@ -80,38 +137,46 @@ function Cartlist() {
           ))
         ) : (
           <>
-            <svg stroke="currentColor" fill="none" stroke-width="2" viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round" className="animate-spin text-center justify-self-center will-change-transform" height="1em" width="1em" xmlns="http://www.w3.org/2000/svg"><line x1="12" y1="2" x2="12" y2="6"></line><line x1="12" y1="18" x2="12" y2="22"></line><line x1="4.93" y1="4.93" x2="7.76" y2="7.76"></line><line x1="16.24" y1="16.24" x2="19.07" y2="19.07"></line><line x1="2" y1="12" x2="6" y2="12"></line><line x1="18" y1="12" x2="22" y2="12"></line><line x1="4.93" y1="19.07" x2="7.76" y2="16.24"></line><line x1="16.24" y1="7.76" x2="19.07" y2="4.93"></line></svg>
+            Empty Cart List
           </>
         )}
- <div className="max-w-7xl gap-4 flex justify-end mt-4">
+          <div className="max-w-7xl gap-4 flex justify-between items-center mt-4">
+            <div className="">
+                {isGetCommand?.status != null && (
+                  <>
+                    <div className={`bg-red-100 border ${isGetCommand?.status ? 'border-green-400' : 'border-red-400' } ${isGetCommand?.status ? 'text-green-700' : 'text-red-700' } px-4 py-3 rounded relative`} role="alert">
+                      <strong className="font-bold">INfo </strong>
+                      <span className="block sm:inline">Something seriously bad happened.</span>
+                    </div>
+                  </>
+                )}
+            </div>
              <div className="w-96 flex flex-col gap-4">
                <h1 className="text-2xl font-semibold text-right">Cart totals</h1>
                <div>
                  <p className="flex items-center justify-between border-[1px] border-gray-400 border-b-0 py-1.5 text-lg px-4 font-medium">
                    Subtotal
                    <span className="font-semibold tracking-wide font-titleFont">
-                     totalAmt
+                   $ {SubTotal.Subtotal}
                    </span>
                  </p>
                  <p className="flex items-center justify-between border-[1px] border-gray-400 border-b-0 py-1.5 text-lg px-4 font-medium">
                    Shipping Charge
                    <span className="font-semibold tracking-wide font-titleFont">
-                     shippingCharge
+                     $ {SubTotal.ShippingCharge}
                    </span>
                  </p>
                  <p className="flex items-center justify-between border-[1px] border-gray-400 py-1.5 text-lg px-4 font-medium">
                    Total
                    <span className="font-bold tracking-wide text-lg font-titleFont">
-                     $624615
+                     $ {SubTotal.Total}
                    </span>
                  </p>
                </div>
                <div className="flex justify-end">
-                 <Link to="/paymentgateway">
-                   <button className="w-52 h-10 bg-black text-white hover:bg-black duration-300">
+                  <button onClick={CommandProducts} className="w-52 h-10 bg-black text-white hover:bg-black duration-300">
                      Proceed to Checkout
                    </button>
-                 </Link>
                </div>
              </div>
            </div>

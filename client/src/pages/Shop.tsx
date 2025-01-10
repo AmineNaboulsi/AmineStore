@@ -30,7 +30,7 @@ const Shop = () => {
       <Header />
       <CartPanel />
 
-      <div className="max-w-container mx-auto px-4 ">
+      <div className="max-w-container mx-auto px-4 bg-[#F5F5F3]">
         
         <h1 className="font-bold text-4xl mt-5">Products</h1>
         <div className="flex items-center gap-1">

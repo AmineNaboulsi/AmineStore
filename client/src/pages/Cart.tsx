@@ -3,6 +3,7 @@ import Cartlist from '../Components/Cartlist'
 import Orderspanel from '../Components/Orderspanel'
 import { HiOutlineChevronRight } from "react-icons/hi";
 import Header from '../Components/Header'
+import Footer from '../pages/Footer.tsx'
 
 const Cart = () => {
  const [isCart , setCart] =useState(true);
@@ -26,9 +27,9 @@ const Cart = () => {
   //   }
   // }, [totalAmt]);
   return (
-    <div className="">
+    <div className="grid grid-rows-[auto,1fr,auto] h-full">
       <Header />
-      <div className="max-w-container mx-auto px-4 bg-white">
+      <div className="max-w-container mx-auto px-4 bg-white  w-full">
         <div className="flex justify-between items-end">
           <div className="w-full py-10 xl:py-10 flex flex-col gap-3">
               <h1 className="text-5xl text-primeColor font-titleFont font-bold">
@@ -69,6 +70,8 @@ const Cart = () => {
         )} 
       
       </div>
+      <Footer/>
+
     </div>
   );
 };
