@@ -5,11 +5,7 @@ import { RootState } from "../Redux/store";
 import { useNavigate } from "react-router-dom";
 import { useEffect, useState } from "react";
 import Cookies from "js-cookie";
-type SubTotal = {
-  Subtotal: number,
-  ShippingCharge :number,
-  Total: number,
-}
+
 type ProductType  =  {
   id_p: number,
   name: string,
@@ -20,18 +16,12 @@ type ProductType  =  {
   img: string,
   categoriename: string 
 }
-type messagecommandtype ={
-    status : boolean | null , 
-    message : string
-}
+
 function Cartlist() {
   const dispatch = useDispatch();
   const navigator = useNavigate();
   const productsStore = useSelector((state : RootState) => state.panier);
-  const [GetCommand, isGetCommand] = useState<messagecommandtype>({
-    status : null , 
-    message : ''
-  });
+
   const [SubTotal, setSubTotal] = useState({
     Subtotal: 0,
     ShippingCharge: 10,
@@ -141,16 +131,7 @@ function Cartlist() {
           </>
         )}
           <div className="max-w-7xl gap-4 flex justify-between items-center mt-4">
-            <div className="">
-                {isGetCommand?.status != null && (
-                  <>
-                    <div className={`bg-red-100 border ${isGetCommand?.status ? 'border-green-400' : 'border-red-400' } ${isGetCommand?.status ? 'text-green-700' : 'text-red-700' } px-4 py-3 rounded relative`} role="alert">
-                      <strong className="font-bold">INfo </strong>
-                      <span className="block sm:inline">Something seriously bad happened.</span>
-                    </div>
-                  </>
-                )}
-            </div>
+           
              <div className="w-96 flex flex-col gap-4">
                <h1 className="text-2xl font-semibold text-right">Cart totals</h1>
                <div>
