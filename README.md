@@ -1,5 +1,10 @@
-<<<<<<< HEAD
-backend/
+
+
+## Liens
+- [Planification](https://amineyoucode.atlassian.net/jira/software/projects/STOR/boards/8/timeline?shared=&atlOrigin=eyJpIjoiYWVjZGI0YzFiMDViNDZkOWE4ZmE1YTIxYWM5ODgwMTEiLCJwIjoiaiJ9)
+
+## BackEnd Structured
+```
 ├── Database/
 │   ├── init.sql
 ├── Diagrams
@@ -25,7 +30,4 @@ backend/
 |   .env
 ├── Vendor/
 
-=======
-## Liens
-- [Planification](https://amineyoucode.atlassian.net/jira/software/projects/STOR/boards/8/timeline?shared=&atlOrigin=eyJpIjoiYWVjZGI0YzFiMDViNDZkOWE4ZmE1YTIxYWM5ODgwMTEiLCJwIjoiaiJ9)
->>>>>>> d835926900e514b39175834c7b9b11d83075f1c0
+```
